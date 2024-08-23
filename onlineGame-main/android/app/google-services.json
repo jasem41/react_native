@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "879948454393",
+    "project_id": "jewel-cash-492d8",
+    "storage_bucket": "jewel-cash-492d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879948454393:android:de3b8de4f8777f6cb8c528",
+        "android_client_info": {
+          "package_name": "com.android.jewelcash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHvohBprBemkqLLvxdb7L-7YoFX6SFp50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
