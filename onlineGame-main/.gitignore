@@ -11,6 +11,8 @@ dist/
 web-build/
 .easignore
 .vscode
+google-service.json
+jewel-cash-492d8-firebase-adminsdk-hb64o-97bf3dc353.json
 # Native
 *.orig.*
 *.jks
