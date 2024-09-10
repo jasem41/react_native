@@ -161,10 +161,6 @@ const ProfilePage = () => {
             <Ionicons name="log-out-outline" size={24} color="white" />
           </TouchableOpacity>
 
-          {/* New Earn by referral Button */}
-          <TouchableOpacity style={styles.referralButton} onPress={() => navigation.navigate("Refral")}>
-            <Text style={styles.referralButtonText}>Earn by referral</Text>
-          </TouchableOpacity>
 
           {avatar || newAvatar ? (
             <TouchableOpacity onPress={pickImage}>

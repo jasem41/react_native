@@ -6,18 +6,21 @@ import { Ionicons } from '@expo/vector-icons';
 
 const ActivitiesTransactionsPage = () => {
   const [activities, setActivities] = useState([]);
+  const [historyItems, setHistoryItems] = useState([]);
 
   useEffect(() => {
     const fetchActivities = async () => {
       const token = await AsyncStorage.getItem('AuthToken');
       try {
-        const res = await axios.post('https://cashgames.website/api/history/ref', {}, {
+        const res = await axios.post('https://cashgames.website/api/gift/get', {}, {
           headers: {
             'Authorization': `${token}`,
           },
         });
+        // console.log(res.data);
         if (res.data.status === 1) {
-          setActivities(res.data.message);
+          // setActivities(res.data.message);
+          setHistoryItems(res.data.hist || []);
         }
       } catch (err) {
         console.error(err);
@@ -30,9 +33,11 @@ const ActivitiesTransactionsPage = () => {
     <View style={styles.item}>
       <Ionicons name="gift-outline" size={40} color="white" style={styles.icon} />
       <View style={styles.details}>
-        <Text style={styles.network}>{item.network}</Text>
-        <Text style={styles.points}>{item.points} points</Text>
-        <Text style={styles.date}>{new Date(item.date * 1000).toLocaleDateString()}</Text>
+        <Text style={styles.network}>{item.g_name}</Text>
+        {item.message && <Text style={styles.message}>{item.message}</Text>}
+        <Text style={styles.status}>
+          {item.is_completed === 0 ? 'In-process' : 'Paid'}
+        </Text>
       </View>
     </View>
   );
@@ -40,9 +45,9 @@ const ActivitiesTransactionsPage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Activities and Transactions</Text>
-      {activities.length > 0 ? (
+      {historyItems.length > 0 ? (
         <FlatList
-          data={activities}
+          data={historyItems}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.list}
@@ -91,14 +96,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 4,
   },
-  points: {
+  message: {
     fontSize: 14,
-    color: '#FFFFFF',
+    color: '#AAAAAA',
     marginBottom: 4,
   },
-  date: {
-    fontSize: 12,
-    color: '#AAAAAA',
+  status: {
+    fontSize: 14,
+    color: '#FFFFFF',
   },
 });
 

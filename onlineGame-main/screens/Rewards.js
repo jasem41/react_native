@@ -44,7 +44,8 @@ const GoogleRewards = ({ items, image, handleRedeem }) => {
                 style={styles.playButton}
                 onPress={() => handleRedeem(item)}
               >
-                <Ionicons name="play-circle" size={30} color="#6200ea" />
+                <Text style={styles.playButtonText}>Redeem</Text>
+
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
@@ -84,7 +85,7 @@ const AmazonRewards = ({ items, image, handleRedeem }) => {
                 style={styles.playButton}
                 onPress={() => handleRedeem(item)}
               >
-                <Ionicons name="play-circle" size={30} color="#6200ea" />
+                <Text style={styles.playButtonText}>Redeem</Text>
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
@@ -115,6 +116,7 @@ const GiftPaymentPage = () => {
     const fetchRewards = async () => {
       try {
         const token = await AsyncStorage.getItem("AuthToken");
+        // console.log(token);
         const response = await axios.post(
           "https://cashgames.website/api/gift/get",
           {},
@@ -122,6 +124,7 @@ const GiftPaymentPage = () => {
             headers: { Authorization: token },
           },
         );
+        // console.log(response.data);
         if (response.data.status === 1) {
           const googleRewards = response.data.cat.find((cat) =>
             cat.name.includes("Google Play"),
@@ -196,6 +199,7 @@ const GiftPaymentPage = () => {
       Alert.alert("Error", "Failed to send email. Please try again.");
     }
     setModalVisible(false);
+    setEmail("");
   };
 
   return (
@@ -206,7 +210,7 @@ const GiftPaymentPage = () => {
             !change
               ? styles.buttonTouch2
               : {
-                  backgroundColor: "#282844",
+                  backgroundColor: "#F7A600",
                   color: "#fff",
                   borderRadius: 20,
                   width: 150,
@@ -234,7 +238,7 @@ const GiftPaymentPage = () => {
             change
               ? styles.buttonTouch2
               : {
-                  backgroundColor: "#282844",
+                  backgroundColor: "#F7A600",
                   color: "#fff",
                   borderRadius: 20,
                   marginLeft: 10,
@@ -259,6 +263,7 @@ const GiftPaymentPage = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <ScrollView>
       {change ? (
         <GoogleRewards
           items={googleRewards.items}
@@ -272,7 +277,9 @@ const GiftPaymentPage = () => {
           handleRedeem={handleRedeem}
         />
       )}
-      <Modal
+   
+      </ScrollView>
+         <Modal
         isVisible={modalVisible}
         animationIn="slideInUp"
         animationOut="slideOutDown"
@@ -371,6 +378,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginLeft: 10,
     padding: 10,
+  },
+  playButtonText:{
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
+    backgroundColor: "#6200ea",
+    borderRadius: 20,
+    padding: 10,
+    width: 100,
   },
   playButton: {
     marginTop: 10,

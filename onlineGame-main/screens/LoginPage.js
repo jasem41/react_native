@@ -1,6 +1,3 @@
-// ios 1000946314250-h5103ljg56r8e42fmq3fu4vkffu8gc2m.apps.googleusercontent.com
-// android 1000946314250-eppdjlv2npq2ks989sgmk72frtq9u5ml.apps.googleusercontent.com
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -10,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  I18nManager
 } from "react-native";
 import ImageSlider from "./ImageSlider";
 import axios from "axios";
@@ -29,6 +27,7 @@ const LoginPage = ({ navigation }) => {
   const [apiToken, setApiToken] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [did, setDid] = useState(uuid.v4());
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -37,6 +36,27 @@ const LoginPage = ({ navigation }) => {
     androidClientId:
       "616965238015-j34u6lrlp74mevipt5ch82kmcvv5nvmr.apps.googleusercontent.com",
   });
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const storedAuthToken = await AsyncStorage.getItem("AuthToken");
+        const storedApiToken = await AsyncStorage.getItem("ApiToken");
+        
+        if (storedAuthToken && storedApiToken) {
+          setAuthToken(storedAuthToken);
+          setApiToken(storedApiToken);
+          navigation.replace("MainTabs");
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   useEffect(() => {
     axios
@@ -96,7 +116,7 @@ const LoginPage = ({ navigation }) => {
         setAuthToken(authkey);
         setApiToken(apiKey);
 
-        navigation.navigate("MainTabs");
+        navigation.replace("MainTabs");
       } else {
         Alert.alert(
           "Error",
@@ -139,7 +159,7 @@ const LoginPage = ({ navigation }) => {
         setAuthToken(authkey);
         setApiToken(apiKey);
 
-        navigation.navigate("MainTabs");
+        navigation.replace("MainTabs");
       } else {
         Alert.alert("Error", jsonD.message || "Google login failed.");
       }
@@ -149,9 +169,18 @@ const LoginPage = ({ navigation }) => {
     }
   };
 
+  if (isCheckingAuth) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#6200ea" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <View style={{ marginBottom: 50 }}>
+      <View style={styles.topSection}>
+      <Text style={styles.appName}>Big Reward</Text>
         <ImageSlider />
       </View>
       <Text style={styles.title}>Login</Text>
@@ -164,9 +193,9 @@ const LoginPage = ({ navigation }) => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <View style={styles.passwordContainer}>
+        <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.input}
+          style={styles.passwordInput}
           placeholder="Password"
           placeholderTextColor="#aaa"
           secureTextEntry={!showPassword}
@@ -175,7 +204,7 @@ const LoginPage = ({ navigation }) => {
           autoCapitalize="none"
         />
         <TouchableOpacity
-          style={styles.eyeIcon}
+          style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}
         >
           <Ionicons
@@ -224,11 +253,31 @@ const LoginPage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#131224",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     padding: 16,
     backgroundColor: "#131224",
+  }, topSection: {
+    marginBottom: 30,
+    alignItems: 'center',
+  },
+  appName: {
+    fontFamily: "Roboto", // You may need to import and load this font
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#FFD700", // Gold color for "Big Reward"
+    textAlign: "center",
+    marginBottom: 20,
+    textShadowColor: "#6200ea",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
   title: {
     fontSize: 28,
@@ -248,12 +297,22 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   passwordContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: "#6200ea",
+    borderWidth: 1,
+    marginBottom: 20,
+    borderRadius: 8,
+    backgroundColor: "#3d0066",
+    paddingHorizontal: 16,
   },
-  eyeIcon: {
-    position: "absolute",
-    right: 20,
-    marginTop: 12,
+  passwordInput: {
+    flex: 1,
+    height: 50,
+    color: "white",
+  },
+  eyeIconContainer: {
+    padding: 10,
   },
   button: {
     backgroundColor: "#6A5DA5",

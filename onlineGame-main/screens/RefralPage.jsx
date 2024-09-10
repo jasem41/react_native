@@ -26,23 +26,12 @@ const ReferralPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={24} color="#FFD700" />
-      </TouchableOpacity>
       <Text style={styles.header}>Invite Friends</Text>
       <Text style={styles.howItWorks}>How It Works</Text>
       <Text style={styles.instructions}>
         {'\u2022'} <Text style={styles.instructionText}>Share your referral link with friends.</Text>
         {'\n'}
-        <Text>|</Text>
-        {'\n'}
-        <Text>|</Text>
-        {'\n'}
         {'\u2022'} <Text style={styles.instructionText}>Your friends receive bonus coins for joining using your link.</Text>
-        {'\n'}
-        <Text>|</Text>
-        {'\n'}
-        <Text>|</Text>
         {'\n'}
         {'\u2022'} <Text style={styles.instructionText}>Earn <Text style={styles.boldText}>50% lifetime commission</Text> on their earnings.</Text>
       </Text>

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  I18nManager
 } from "react-native";
 import ImageSlider from "./ImageSlider";
 import axios from "axios";
@@ -103,13 +104,18 @@ const SubscriptionPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
     <View style={styles.content}>
-      <Ionicons
-        name="chevron-back-outline"
-        size={24}
-        color="white"
+      <TouchableOpacity
+        style={styles.backButton}
         onPress={() => navigation.goBack()}
-      />
-      <View style={{ marginTop: 50 }}>
+      >
+        <Ionicons
+          name={I18nManager.isRTL ? "chevron-forward-outline" : "chevron-back-outline"}
+          size={24}
+          color="white"
+        />
+      </TouchableOpacity>
+      <View style={styles.topSection}>
+        <Text style={styles.appName}>Big Reward</Text>
         <ImageSlider />
       </View>
       <Text style={styles.title}>Sign Up</Text>
@@ -172,20 +178,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center", // Center horizontally
+    alignItems: "center",
     padding: 16,
     backgroundColor: "#131224",
   },
   content: {
-    width: '100%', // Ensure content takes full width
-    maxWidth: 400, // Optional: limit max width for better alignment
+    width: '100%',
+    maxWidth: 400,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    [I18nManager.isRTL ? 'right' : 'left']: 10,
+    zIndex: 1,
+  },  
+  topSection: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  appName: {
+    fontFamily: "Roboto", // You may need to import and load this font
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#FFD700", // Gold color for "Big Reward"
+    textAlign: "center",
+    marginBottom: 20,
+    textShadowColor: "#6200ea",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
   title: {
     fontSize: 28,
     color: "white",
     marginBottom: 32,
     textAlign: "center",
-    marginTop: 10,
   },
   link: {
     color: "#6200ea",
@@ -204,22 +230,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#3d0066",
   },
   passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: "#6200ea",
     borderWidth: 1,
     marginBottom: 20,
-    paddingHorizontal: 16,
     borderRadius: 8,
     backgroundColor: "#3d0066",
+    paddingHorizontal: 16,
   },
   passwordInput: {
     flex: 1,
     color: "white",
     height: 50,
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   passwordToggle: {
-    marginLeft: 10,
+    padding: 10,
   },
   button: {
     backgroundColor: "#6A5DA5",

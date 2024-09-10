@@ -47,6 +47,9 @@ const MainTabNavigator = () => (
         } else if (route.name === "Home") {
           iconName = "home";
           label = "Home";
+        }else if (route.name === "Refral") {
+          iconName = "people-outline";
+          label = "Refral";
         }
 
         return (
@@ -72,6 +75,7 @@ const MainTabNavigator = () => (
     <Tab.Screen name="Home" component={Home} />
     <Tab.Screen name="Activity" component={ActivitiesTransactionsPage} />
     <Tab.Screen name="Reward" component={GiftPaymentPage} />
+    <Tab.Screen name="Refral" component={ReferralPage} options={{ headerShown: false }}/>
     <Tab.Screen name="Profile" component={ProfilePage} />
   </Tab.Navigator>
 );
@@ -101,7 +105,7 @@ const MainNavigator = () => (
       options={{ headerShown: false }}
     />
 
-    <Stack.Screen name="Refral" component={ReferralPage} options={{ headerShown: false }} />
+    {/* <Stack.Screen name="Refral" component={ReferralPage} options={{ headerShown: false }} /> */}
   </Stack.Navigator>
 );
 
