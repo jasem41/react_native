@@ -1,4 +1,4 @@
-package com.android.jewelcash
+package com.bigrewards.jewelcash
 
 import android.content.Intent
 import android.util.Log

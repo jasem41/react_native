@@ -28,10 +28,10 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.android.jewelcash"/>
+        <data android:scheme="com.bigrewards.jewelcash"/>
         <data android:scheme="exp+onlinegame"/>
-        <data android:scheme="com.android.jewelcash"/>
-        <data android:scheme="exp+com.android.jewelcash"/>
+        <data android:scheme="com.bigrewards.jewelcash"/>
+        <data android:scheme="exp+com.bigrewards.jewelcash"/>
       </intent-filter>
     </activity>
     <activity

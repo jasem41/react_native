@@ -1,4 +1,4 @@
-package com.android.jewelcash
+package com.bigrewards.jewelcash
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

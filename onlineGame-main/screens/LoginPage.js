@@ -16,7 +16,9 @@ import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
-
+// import { GoogleSignin } from "react-native-google-signin/google-signin";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { auth } from "@react-native-firebase/auth";
 WebBrowser.maybeCompleteAuthSession();
 
 const LoginPage = ({ navigation }) => {
@@ -30,19 +32,38 @@ const LoginPage = ({ navigation }) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [did, setDid] = useState(uuid.v4());
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId:
-      "1000946314250-h5103ljg56r8e42fmq3fu4vkffu8gc2m.apps.googleusercontent.com",
-    androidClientId:
-      "616965238015-j34u6lrlp74mevipt5ch82kmcvv5nvmr.apps.googleusercontent.com",
-  });
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   iosClientId:
+  //     "1000946314250-h5103ljg56r8e42fmq3fu4vkffu8gc2m.apps.googleusercontent.com",
+  //   androidClientId:
+  //     "616965238015-j34u6lrlp74mevipt5ch82kmcvv5nvmr.apps.googleusercontent.com",
+  // });
+
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:"852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com"
+    })
+  }, [])
+
+const signin = async () => {
+      try {
+        await GoogleSignin.hasPlayServices();
+        const { idToken } = await GoogleSignin.signIn();
+        const { accessToken } = await GoogleSignin.getTokens();
+        handleGoogleLogin(accessToken);
+      } catch (error) {
+        console.log(error);
+      }
+}
+
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const storedAuthToken = await AsyncStorage.getItem("AuthToken");
         const storedApiToken = await AsyncStorage.getItem("ApiToken");
-        
+
         if (storedAuthToken && storedApiToken) {
           setAuthToken(storedAuthToken);
           setApiToken(storedApiToken);
@@ -69,12 +90,12 @@ const LoginPage = ({ navigation }) => {
       });
   }, []);
 
-  useEffect(() => {
-    if (response?.type === "success") {
-      const { authentication } = response;
-      handleGoogleLogin(authentication.accessToken);
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   if (response?.type === "success") {
+  //     const { authentication } = response;
+  //     handleGoogleLogin(authentication.accessToken);
+  //   }
+  // }, [response]);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -121,7 +142,7 @@ const LoginPage = ({ navigation }) => {
         Alert.alert(
           "Error",
           response.data.message ||
-            "Login failed. Please check your credentials.",
+          "Login failed. Please check your credentials.",
         );
       }
     } catch (error) {
@@ -180,7 +201,7 @@ const LoginPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
-      <Text style={styles.appName}>Big Reward</Text>
+        <Text style={styles.appName}>Big Reward</Text>
         <ImageSlider />
       </View>
       <Text style={styles.title}>Login</Text>
@@ -193,7 +214,7 @@ const LoginPage = ({ navigation }) => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-        <View style={styles.passwordContainer}>
+      <View style={styles.passwordContainer}>
         <TextInput
           style={styles.passwordInput}
           placeholder="Password"
@@ -228,9 +249,9 @@ const LoginPage = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.googleButton}
-        disabled={!request}
+        // disabled={!request}
         onPress={() => {
-          promptAsync();
+          signin();
         }}
       >
         <FontAwesome

@@ -83,9 +83,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.android.jewelcash'
+    namespace 'com.bigrewards.jewelcash'
     defaultConfig {
-        applicationId 'com.android.jewelcash'
+        applicationId 'com.bigrewards.jewelcash'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -160,6 +160,9 @@ dependencies {
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
     def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true";
+//    implementation(project(':react-native-google-signin')) {
+//        exclude group: "com.google.android.gms" // very important
+//    }
 
     if (isGifEnabled) {
         // For animated gif support

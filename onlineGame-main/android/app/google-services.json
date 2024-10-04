@@ -1,26 +1,126 @@
 {
   "project_info": {
-    "project_number": "879948454393",
-    "project_id": "jewel-cash-492d8",
-    "storage_bucket": "jewel-cash-492d8.appspot.com"
+    "project_number": "852611106129",
+    "project_id": "cash-blue",
+    "storage_bucket": "cash-blue.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:879948454393:android:de3b8de4f8777f6cb8c528",
+        "mobilesdk_app_id": "1:852611106129:android:ed0906c471c03a266ebf70",
         "android_client_info": {
-          "package_name": "com.android.jewelcash"
+          "package_name": "com.bigrewards.jewelcash"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "852611106129-j3ksduittmd4n518t33naj854gengfoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bigrewards.jewelcash",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "852611106129-jb8qp2j7df677qpv3m51um99huj4kl3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bigrewards.jewelcash",
+            "certificate_hash": "f3ffbb77b49c049d2df6beb49a00056d892325b9"
+          }
+        },
+        {
+          "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBHvohBprBemkqLLvxdb7L-7YoFX6SFp50"
+          "current_key": "AIzaSyCc-ook7NdnyT2fs_wpCOD2om6w_n_4HH0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852611106129:android:22d30b2be7ff1d156ebf70",
+        "android_client_info": {
+          "package_name": "com.bluecash.rewardsgaga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc-ook7NdnyT2fs_wpCOD2om6w_n_4HH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852611106129:android:bc18a706cbc51bb96ebf70",
+        "android_client_info": {
+          "package_name": "com.gocashearn.freerewardstols"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852611106129-id3ohcochdml72tpu6ssqnrk7otuj91j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gocashearn.freerewardstols",
+            "certificate_hash": "701fd920cef6671bae434b2eeebccdd9748fbc36"
+          }
+        },
+        {
+          "client_id": "852611106129-us4ifodvul8jeg6nfdpn04td9ep679sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gocashearn.freerewardstols",
+            "certificate_hash": "6c7b3e5f47f1d60dfb17ce11006f45050429d112"
+          }
+        },
+        {
+          "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc-ook7NdnyT2fs_wpCOD2om6w_n_4HH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852611106129-bmhomrbs0ir82b5rg6sv8mjp4ckc858c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

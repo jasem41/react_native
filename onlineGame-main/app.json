@@ -13,14 +13,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.android.jewelcash"
+      "bundleIdentifier": "com.bigrewards.jewelcash"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon2.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.android.jewelcash",
+      "package": "com.bigrewards.jewelcash",
       "permissions": ["INTERNET", "ACCESS_NETWORK_STATE", "ACCESS_WIFI_STATE"],
       "googleServicesFile": "./google-services.json"
     },
