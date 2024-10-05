@@ -70,9 +70,8 @@ const TopBar = () => {
             <Text style={{ fontSize: 24, color: 'gold' }}>$</Text>
             <Text style={styles.coinText}>{balance}</Text>
           </View>
-          <Text style={styles.title}>Let's start earning</Text>
         </View>
-        <Ionicons onPress={() => navigation.navigate('Profile')} name="person-circle" size={30} color="white" />
+        <Ionicons onPress={() => navigation.navigate('Profile')} name="person-circle" size={45} color="white" />
       </View>
       <View style={styles.progressBarContainer}>
         <View style={styles.backgroundBar}>
@@ -87,7 +86,6 @@ const TopBar = () => {
         </View>
         <View style={styles.progressTextContainer}>
           <Text style={styles.progressText}>{balance} / {nextPayout}</Text>
-          <Text style={styles.payoutText}>Next Payout ${nextPayout}</Text>
         </View>
       </View>
     </View>

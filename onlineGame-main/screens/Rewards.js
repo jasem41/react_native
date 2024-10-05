@@ -38,7 +38,8 @@ const GoogleRewards = ({ items, image, handleRedeem }) => {
                 }}
               >
                 <Text style={styles.content}>Points: {item.points}</Text>
-                <Text style={styles.content}>{item.amount}</Text>
+                <Text style={styles.content}>{item.amount}</Text>  
+                
               </View>
               <TouchableOpacity
                 style={styles.playButton}
@@ -333,13 +334,14 @@ const styles = StyleSheet.create({
   sideCard: {
     backgroundColor: "#282844",
     borderRadius: 8,
-    padding: 16,
+    // padding: 16,
     width: "48%",
     alignItems: "center",
     marginBottom: 16,
   },
   cardImage: {
-    width: 100,
+    borderRadius: 8,
+    width: 150,
     height: 100,
     marginBottom: 16,
   },
@@ -352,6 +354,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     marginBottom: 16,
+    padding: 10,
   },
   buttonText: {
     color: "#fff",
@@ -390,6 +393,7 @@ const styles = StyleSheet.create({
   },
   playButton: {
     marginTop: 10,
+    marginBottom: 16,
   },
   modalView: {
     backgroundColor: "#282844",

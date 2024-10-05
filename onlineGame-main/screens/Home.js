@@ -187,14 +187,13 @@ const startFyberActivity = (userid, appkey, appid) => {
         style={styles.fullWidthCard}
       >
         <Image
-          source={{ uri: "https://via.placeholder.com/150" }}
+          source={require("../assets/Frame 1.png")}
           style={styles.MainCardImage}
         />
         <View style={styles.MainCardContent}>
           <Text style={styles.earningsText}>Earnings up to</Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="cash-outline" size={24} color="gold" />
-            <Text style={styles.priceText}> $1000</Text>
+            <Text style={styles.priceText}> $1000,000</Text>
           </View>
         </View>
         <TouchableOpacity
