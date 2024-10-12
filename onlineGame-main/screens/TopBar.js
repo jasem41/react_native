@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +10,7 @@ const TopBar = () => {
   const navigation = useNavigation();
   const [balance, setBalance] = useState(0);
   const [nextPayout, setNextPayout] = useState(0);
+  const [completedGifts, setCompletedGifts] = useState(0);
   const progressAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const TopBar = () => {
         const response = await axios.post('https://cashgames.website/api/me/balance', {}, {
           headers: { "Authorization": token }
         });
+
         if (response.data.status === 1) {
           setBalance(response.data.b);
         }
@@ -33,10 +35,14 @@ const TopBar = () => {
         const response = await axios.post('https://cashgames.website/api/gift/get', {}, {
           headers: { "Authorization": token }
         });
+
         if (response.data.status === 1) {
           const payouts = response.data.cat.flatMap(cat => cat.items);
           const nextPayout = payouts.length > 0 ? payouts[0].points : 0;
           setNextPayout(nextPayout);
+
+          const completedCount = response.data.hist.filter(histItem => histItem.is_completed === 1).length;
+          setCompletedGifts(completedCount);
         }
       } catch (error) {
         console.error('Failed to fetch payout:', error);
@@ -65,10 +71,14 @@ const TopBar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topBarContainer}>
-        <View style={styles.coinAndTitleContainer}>
+        <View style={styles.coinAndGiftsContainer}>
           <View style={styles.coinContainer}>
             <Text style={{ fontSize: 24, color: 'gold' }}>$</Text>
             <Text style={styles.coinText}>{balance}</Text>
+          </View>
+          <View style={styles.completedGiftsContainer}>
+            <MaterialIcons name="card-giftcard" size={24} color="white" />
+            <Text style={styles.completedGiftsText}>{completedGifts} Completed Gifts</Text>
           </View>
         </View>
         <Ionicons onPress={() => navigation.navigate('Profile')} name="person-circle" size={45} color="white" />
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
-  coinAndTitleContainer: {
+  coinAndGiftsContainer: {
     flex: 1,
   },
   coinContainer: {
@@ -115,11 +125,19 @@ const styles = StyleSheet.create({
   coinText: {
     color: 'white',
     marginLeft: 8,
-    fontSize: 16,
+    fontSize: 24,
+    fontWeight: 'bold',
   },
-  title: {
+  completedGiftsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // marginTop: 1,
+    justifyContent: 'center',
+  },
+  completedGiftsText: {
     color: 'white',
     fontSize: 16,
+    marginLeft: 4,
   },
   progressBarContainer: {
     marginTop: 8,
@@ -127,7 +145,7 @@ const styles = StyleSheet.create({
   backgroundBar: {
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#1A1A2E', // Background color matching the theme
+    backgroundColor: '#1A1A2E',
     overflow: 'hidden',
   },
   animatedBar: {

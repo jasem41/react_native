@@ -17,7 +17,7 @@ import uuid from "react-native-uuid";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import auth from '@react-native-firebase/app';
+import { auth } from "@react-native-firebase/auth";
 WebBrowser.maybeCompleteAuthSession();
 
 const LoginPage = ({ navigation }) => {
@@ -45,23 +45,38 @@ const LoginPage = ({ navigation }) => {
     })
   }, [])
 
-const signin = async () => {
-      try {
-        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-        console.log({ idToken });
-        // handleGoogleLogin(idToken);
-      
-        // Create a Google credential with the token
-        const googleCredential = auth.GooleAuthProvider.credential(idToken);
-      
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential);
-      } catch (error) {
-        console.log(error);
+  const signin = async () => {
+    try {
+      const currentUser = GoogleSignin.getCurrentUser();
+      if (currentUser) {
+        await GoogleSignin.signOut();
       }
-}
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      const { idToken } = await GoogleSignin.signIn();
+      console.log("ID Token: ", idToken);
+      if (!idToken) {
+        Alert.alert("Google Sign-In Error", "No ID token received.");
+        return;
+      }
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+      const user = auth().currentUser;
+      const token = await user.getIdToken();
+      handleGoogleLogin(token);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert("Google Sign-In Cancelled");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert("Google Sign-In in Progress");
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert("Google Play Services Not Available or Outdated");
+      } else {
+        Alert.alert("Google Sign-In Error", error.message);
+      }
+    }
+  };
+  
 
 
   useEffect(() => {
@@ -89,6 +104,7 @@ const signin = async () => {
     axios
       .get("http://ip-api.com/json")
       .then((res) => {
+        console.log(res.data.countryCode)
         setCountryCode(res.data.countryCode);
       })
       .catch((err) => {

@@ -34,11 +34,13 @@ const startFyberActivity = (userid, appkey, appid) => {
 
 
   useEffect(() => {
+  
     const fetchCountryCode = async () => {
       try {
         const res = await axios.get(
           "https://ipinfo.io/json?token=285fe0806df8ea",
         );
+        console.log(res.data.country)
         return res.data.country;
       } catch (error) {
         console.error("Error fetching country code:", error);
